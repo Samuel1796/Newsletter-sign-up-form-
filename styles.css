@@ -1,0 +1,485 @@
+/* ===== Custom Font ===== */
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ===== CSS Variables ===== */
+:root {
+  /* Primary */
+  --tomato: hsl(4, 100%, 67%);
+  --tomato-light: hsla(4, 100%, 67%, 0.15);
+  
+  /* Neutral */
+  --dark-slate-grey: hsl(234, 29%, 20%);
+  --charcoal-grey: hsl(235, 18%, 26%);
+  --grey: hsl(231, 7%, 60%);
+  --white: hsl(0, 0%, 100%);
+  
+  /* Gradients */
+  --btn-gradient: linear-gradient(204deg, hsl(346, 100%, 66%) 0%, hsl(4, 100%, 67%) 100%);
+  
+  /* Typography */
+  --font-family: 'Roboto', sans-serif;
+  --font-size-base: 16px;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 0.75rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 2.5rem;
+  --spacing-3xl: 3rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 2rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+}
+
+/* ===== CSS Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: var(--font-size-base);
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--dark-slate-grey);
+  background-color: var(--charcoal-grey);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input {
+  font-family: inherit;
+}
+
+/* ===== Utility Classes ===== */
+.hidden {
+  display: none !important;
+}
+
+/* ===== Main Container ===== */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  width: 100%;
+  min-height: calc(100vh - 40px);
+}
+
+/* ===== Card Base Styles ===== */
+.card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 15px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== Sign-up Card ===== */
+.signup-card {
+  display: flex;
+  flex-direction: row-reverse;
+  max-width: 928px;
+  padding: var(--spacing-lg);
+  gap: var(--spacing-xl);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  flex: 1;
+}
+
+.card-image {
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===== Typography ===== */
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--spacing-lg);
+  color: var(--dark-slate-grey);
+}
+
+.description {
+  color: var(--dark-slate-grey);
+  margin-bottom: var(--spacing-lg);
+  line-height: 1.6;
+}
+
+/* ===== Benefits List ===== */
+.benefits-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.benefits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.benefits-list img {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ===== Form Styles ===== */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-row label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--dark-slate-grey);
+}
+
+.error-message {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tomato);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.error-message.visible {
+  opacity: 1;
+}
+
+/* ===== Input Styles ===== */
+input[type="email"] {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--grey);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  color: var(--dark-slate-grey);
+  background-color: var(--white);
+  outline: none;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+input[type="email"]::placeholder {
+  color: var(--grey);
+}
+
+input[type="email"]:focus {
+  border-color: var(--dark-slate-grey);
+}
+
+/* Error state */
+input[type="email"].error {
+  border-color: var(--tomato);
+  background-color: var(--tomato-light);
+  color: var(--tomato);
+}
+
+input[type="email"].error::placeholder {
+  color: var(--tomato);
+}
+
+/* ===== Button Styles ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.125rem 2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+}
+
+.btn-primary {
+  background-color: var(--dark-slate-grey);
+  color: var(--white);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--btn-gradient);
+  box-shadow: 0 16px 32px hsla(4, 100%, 67%, 0.5);
+}
+
+.btn-primary:focus {
+  outline: 2px solid var(--tomato);
+  outline-offset: 2px;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* ===== Success Card ===== */
+.success-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 504px;
+  padding: var(--spacing-3xl) 4rem 4rem;
+  gap: var(--spacing-2xl);
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.success-card .title {
+  margin-bottom: var(--spacing-lg);
+}
+
+.success-card .description {
+  margin-bottom: 0;
+}
+
+.success-card .description strong {
+  color: var(--dark-slate-grey);
+}
+
+/* ===== Attribution ===== */
+.attribution {
+  font-size: 0.6875rem;
+  text-align: center;
+  color: var(--white);
+  padding: var(--spacing-sm);
+}
+
+.attribution a {
+  color: hsl(228, 45%, 70%);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.attribution a:hover {
+  color: var(--tomato);
+}
+
+/* ===== Responsive Design ===== */
+
+/* Tablet and smaller screens */
+@media (max-width: 900px) {
+  .signup-card {
+    flex-direction: column;
+    max-width: 500px;
+    padding: 0;
+    padding-bottom: var(--spacing-xl);
+    border-radius: var(--radius-md);
+  }
+
+  .card-content {
+    padding: var(--spacing-xl) var(--spacing-lg);
+    order: 2;
+  }
+
+  .card-image {
+    order: 1;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .card-image img {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  body {
+    background-color: var(--white);
+    justify-content: flex-start;
+  }
+
+  .container {
+    padding: 0;
+    min-height: auto;
+    flex: 1;
+  }
+
+  .card {
+    border-radius: 0;
+    box-shadow: none;
+    min-height: 100vh;
+  }
+
+  .signup-card {
+    max-width: 100%;
+    padding-bottom: var(--spacing-2xl);
+    min-height: 100vh;
+  }
+
+  .card-content {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-xl);
+    flex: 1;
+  }
+
+  .card-image {
+    width: 100%;
+  }
+
+  .card-image img {
+    border-radius: 0 0 var(--radius-md) var(--radius-md);
+    width: 100%;
+  }
+
+  .title {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .description {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .benefits-list {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Success card mobile */
+  .success-card {
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 9rem var(--spacing-lg) var(--spacing-2xl);
+    justify-content: space-between;
+  }
+
+  .success-icon {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  .success-card .title {
+    font-size: 2.5rem;
+  }
+
+  .success-content {
+    flex: 1;
+  }
+
+  .attribution {
+    color: var(--grey);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--white);
+  }
+}
+
+/* Larger desktop screens */
+@media (min-width: 1440px) {
+  .signup-card {
+    padding: var(--spacing-lg);
+  }
+
+  .card-content {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-primary {
+    border: 2px solid currentColor;
+  }
+
+  input[type="email"] {
+    border-width: 2px;
+  }
+}

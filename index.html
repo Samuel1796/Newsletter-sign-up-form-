@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="styles.css">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+</head>
+<body>
+  <main class="container">
+    <!-- Sign-up form card -->
+    <article class="card signup-card" id="signup-card">
+      <div class="card-content">
+        <h1 class="title">Stay updated!</h1>
+        <p class="description">Join 60,000+ product managers receiving monthly updates on:</p>
+        
+        <ul class="benefits-list">
+          <li>
+            <img src="./assets/images/icon-list.svg" alt="" aria-hidden="true">
+            <span>Product discovery and building what matters</span>
+          </li>
+          <li>
+            <img src="./assets/images/icon-list.svg" alt="" aria-hidden="true">
+            <span>Measuring to ensure updates are a success</span>
+          </li>
+          <li>
+            <img src="./assets/images/icon-list.svg" alt="" aria-hidden="true">
+            <span>And much more!</span>
+          </li>
+        </ul>
+
+        <form class="signup-form" id="signup-form" novalidate>
+          <div class="form-group">
+            <div class="label-row">
+              <label for="email">Email address</label>
+              <span class="error-message" id="error-message" aria-live="polite"></span>
+            </div>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="email@company.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Subscribe to monthly newsletter
+          </button>
+        </form>
+      </div>
+      
+      <div class="card-image">
+        <picture>
+          <source media="(max-width: 768px)" srcset="./assets/images/illustration-sign-up-mobile.svg">
+          <img src="./assets/images/illustration-sign-up-desktop.svg" alt="Newsletter illustration">
+        </picture>
+      </div>
+    </article>
+
+    <!-- Success message card -->
+    <article class="card success-card hidden" id="success-card">
+      <div class="success-content">
+        <img src="./assets/images/icon-success.svg" alt="" class="success-icon" aria-hidden="true">
+        <h1 class="title">Thanks for subscribing!</h1>
+        <p class="description">
+          A confirmation email has been sent to <strong id="user-email"></strong>. 
+          Please open it and click the button inside to confirm your subscription.
+        </p>
+      </div>
+      <button type="button" class="btn btn-primary" id="dismiss-btn">
+        Dismiss message
+      </button>
+    </article>
+  </main>
+
+  <footer class="attribution">
+    QA LAB 1
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
