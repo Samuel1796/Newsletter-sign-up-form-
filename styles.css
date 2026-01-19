@@ -123,7 +123,7 @@ input {
 /* ===== Sign-up Card ===== */
 .signup-card {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row; /* Change from row-reverse to row */
   max-width: 928px;
   padding: var(--spacing-lg);
   gap: var(--spacing-xl);
@@ -351,11 +351,11 @@ input[type="email"].error::placeholder {
 
   .card-content {
     padding: var(--spacing-xl) var(--spacing-lg);
-    order: 2;
+    order: 2; /* Ensure content comes after image */
   }
 
   .card-image {
-    order: 1;
+    order: 1; /* Ensure image comes first */
     border-radius: 0;
     margin: 0;
   }
