@@ -1,0 +1,7 @@
+function showError(message) {
+  errorMessage.textContent = message;  // Sets the error message text
+  errorMessage.classList.add('visible'); // Makes error message visible
+  emailInput.classList.add('error'); // Adds error styling to input field
+  emailInput.setAttribute('aria-invalid', 'true'); // Accessibility: marks field as invalid
+  emailInput.setAttribute('aria-describedby', 'error-message'); // Links error to field
+}
