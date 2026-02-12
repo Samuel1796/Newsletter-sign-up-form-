@@ -2,16 +2,17 @@ name: Trigger Selenium Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ master ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ master ]
+  workflow_dispatch:
 
 jobs:
   trigger-selenium-tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trigger QAM05 Selenium Tests
+      - name: Trigger Selenium Tests in Automation Repo
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
@@ -19,17 +20,17 @@ jobs:
           event-type: newsletter-update
           client-payload: |
             {
+              "source_repository": "${{ github.repository }}",
               "branch": "${{ github.ref_name }}",
               "commit_sha": "${{ github.sha }}",
               "commit_message": "${{ github.event.head_commit.message || github.event.pull_request.title }}",
               "author": "${{ github.actor }}",
-              "repository": "${{ github.repository }}",
               "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
 
       - name: Confirm Dispatch
         run: |
-          echo "✅ Selenium tests triggered successfully"
-          echo "Target Repo: QAM05-Selenium_On_Newsletter"
+          echo "✅ Selenium tests successfully triggered"
+          echo "Source Repo: ${{ github.repository }}"
           echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
