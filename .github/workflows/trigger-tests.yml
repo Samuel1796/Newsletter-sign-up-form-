@@ -1,0 +1,25 @@
+name: Trigger Integration Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+
+jobs:
+  trigger-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger QAMO5-SELENIUM Tests
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.DISPATCH_TOKEN }}
+          script: |
+            github.rest.repos.createDispatchEvent({
+              owner: 'Samuel1796',
+              repo: 'QAMO5-SELENIUM',
+              event_type: 'newsletter-update',
+              client_payload: {
+                branch: '${{ github.ref_name }}',
+                commit_sha: '${{ github.sha }}',
+                commit_message: '${{ github.event.head_commit.message }}'
+              }
+            });
