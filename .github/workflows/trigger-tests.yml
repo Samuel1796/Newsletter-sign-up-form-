@@ -1,25 +1,33 @@
-name: Trigger Integration Tests
+name: Trigger Selenium Tests
 
 on:
   push:
     branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
-  trigger-tests:
+  trigger-selenium-tests:
     runs-on: ubuntu-latest
+    
     steps:
       - name: Trigger QAMO5-SELENIUM Tests
-        uses: actions/github-script@v6
+        uses: peter-evans/repository-dispatch@v2
         with:
-          github-token: ${{ secrets.DISPATCH_TOKEN }}
-          script: |
-            github.rest.repos.createDispatchEvent({
-              owner: 'Samuel1796',
-              repo: 'QAMO5-SELENIUM',
-              event_type: 'newsletter-update',
-              client_payload: {
-                branch: '${{ github.ref_name }}',
-                commit_sha: '${{ github.sha }}',
-                commit_message: '${{ github.event.head_commit.message }}'
-              }
-            });
+          token: ${{ secrets.DISPATCH_TOKEN }}
+          repository: Samuel1796/QAMO5-SELENIUM
+          event-type: newsletter-update
+          client-payload: |
+            {
+              "branch": "${{ github.ref_name }}",
+              "commit_sha": "${{ github.sha }}",
+              "commit_message": "${{ github.event.head_commit.message }}",
+              "author": "${{ github.actor }}",
+              "repository": "${{ github.repository }}"
+            }
+      
+      - name: Confirm Dispatch
+        run: |
+          echo "✅ Successfully triggered Selenium tests in QAMO5-SELENIUM repository"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
