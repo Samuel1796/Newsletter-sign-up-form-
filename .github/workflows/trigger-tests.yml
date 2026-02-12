@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      
       - name: Trigger QAMO5-SELENIUM Tests
         uses: peter-evans/repository-dispatch@v2
         with:
@@ -21,9 +24,11 @@ jobs:
             {
               "branch": "${{ github.ref_name }}",
               "commit_sha": "${{ github.sha }}",
-              "commit_message": "${{ github.event.head_commit.message }}",
+              "commit_message": "${{ github.event.head_commit.message || github.event.pull_request.title }}",
               "author": "${{ github.actor }}",
-              "repository": "${{ github.repository }}"
+              "repository": "${{ github.repository }}",
+              "run_id": "${{ github.run_id }}",
+              "run_url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
       
       - name: Confirm Dispatch
@@ -31,3 +36,60 @@ jobs:
           echo "✅ Successfully triggered Selenium tests in QAMO5-SELENIUM repository"
           echo "Branch: ${{ github.ref_name }}"
           echo "Commit: ${{ github.sha }}"
+          echo "Tests will run in: https://github.com/Samuel1796/QAM05-Selenium_On_Newsletter/actions"
+      
+      # Optional: Notify Slack that tests were triggered
+      - name: Slack Notification - Tests Triggered
+        if: always()
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          payload: |
+            {
+              "text": "🔄 Selenium Tests Triggered",
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "🔄 Selenium Tests Triggered",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Source Repository:*\n${{ github.repository }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Branch:*\n${{ github.ref_name }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Commit:*\n${{ github.sha }}"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*Author:*\n${{ github.actor }}"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Message:*\n```${{ github.event.head_commit.message || github.event.pull_request.title }}```"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "⏳ Tests are now running in the Selenium repository..."
+                  }
+                }
+              ]
+            }
