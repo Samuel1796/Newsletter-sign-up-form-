@@ -15,7 +15,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.DISPATCH_TOKEN }}
-          repository: Samuel1796/QAMO5-SELENIUM
+          repository: Samuel1796/QAM05-Selenium_On_Newsletter
           event-type: newsletter-update
           client-payload: |
             {
